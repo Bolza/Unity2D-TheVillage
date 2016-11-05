@@ -8,11 +8,12 @@ public class CameraFollow : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		cam = GetComponent<Camera> ();
+		cam.orthographicSize = (Screen.height / pixelPerUnit / 4) + 2;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		cam.orthographicSize = Screen.height / pixelPerUnit / 4;
+		
 		if (target) {
 			Vector3 z = new Vector3 (0, 0, -1);
 			transform.position = Vector3.Lerp (transform.position, target.position, 0.1f) + z;

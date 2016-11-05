@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
-
+	public float speed = 2f;
 	Rigidbody2D rb2d;
 	Animator anim;
 	// Use this for initialization
@@ -23,6 +23,6 @@ public class PlayerMovement : MonoBehaviour {
 			anim.SetBool ("isWalking", false);
 		}
 
-		rb2d.MovePosition (rb2d.position + movement * Time.deltaTime);
+		rb2d.MovePosition (rb2d.position + movement * Time.deltaTime * speed);
 	}
 }
