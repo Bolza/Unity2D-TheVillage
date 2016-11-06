@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float speed = 2f;
 	Rigidbody2D rb2d;
 	Animator anim;
+	public bool freeze = false;
 	// Use this for initialization
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
@@ -13,16 +14,17 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (!freeze) {
+			Vector2 movement = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+			if (movement != Vector2.zero) {
+				anim.SetBool ("isWalking", true);
+				anim.SetFloat ("inputX", movement.x);
+				anim.SetFloat ("inputY", movement.y);
+			} else {
+				anim.SetBool ("isWalking", false);
+			}
 
-		Vector2 movement = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
-		if (movement != Vector2.zero) {
-			anim.SetBool ("isWalking", true);
-			anim.SetFloat ("inputX", movement.x);
-			anim.SetFloat ("inputY", movement.y);
-		} else {
-			anim.SetBool ("isWalking", false);
+			rb2d.MovePosition (rb2d.position + movement * Time.deltaTime * speed);
 		}
-
-		rb2d.MovePosition (rb2d.position + movement * Time.deltaTime * speed);
 	}
 }
